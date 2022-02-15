@@ -1,0 +1,15 @@
+{
+  "name": "rbox-doc",
+  "version": "1.0.0",
+  "description": "rbox文档",
+  "repository": "github:rboxjs/rbox-doc",
+  "scripts": {
+    "dev": "docsify serve"
+  },
+  "author": "yujingwyh@163.com",
+  "license": "ISC",
+  "devDependencies": {
+    "docsify": "^4.12.2"
+  },
+  "dependencies": {}
+}

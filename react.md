@@ -44,7 +44,7 @@ function Page(){
 ```
 
 #### 类组件
-* 类组件需要使用`observe`来监视组件props和this中的数据容器
+* 类组件需要使用`observe`来监视组件this中的数据容器
 * 当对应是容器数据发生变化时组件会自动渲染
 
 ```typescript jsx
@@ -68,7 +68,6 @@ class PageComponent extends React.Component{
     //...
 }
 
-
 //or
 const PageComponent_1 = observe(_Page)
 
@@ -80,7 +79,23 @@ const PageComponent_1 = observe(_Page)
 这里会使用微任务来进行渲染组件，也就是`updateData`调用后立马再执行`updateData`不会渲染两次 <br />
 有时调用`updateData`后并不需要渲染，我们可以使用以下方式进行优化
 
+#### 使用 shouldRenderForStore
+
+返回false会组织渲染
+
+```typescript
+type ShouldRenderForStore = <D extends CommonStore>(store:D,previousData:PickData<D>)=>boolean
+interface ReactClassComponent extends React.ComponentClass{
+    shouldRenderForStore?:ShouldRenderForStore
+}
+
+type useStores = <S extends CommonStore[]>(stores: S, shouldRenderForStore?: ShouldRenderForStore)=> S
+type observe = <C extends ComponentClass>(ReactClassComponent:C) => C
+```
+
 #### 使用 mergeUpdate
+
+将批量更新的行为放到`mergeUpdate`中调用，这样会合并为一次渲染
 
 ```typescript jsx
 import {mergeUpdate} from 'rbox-react'
